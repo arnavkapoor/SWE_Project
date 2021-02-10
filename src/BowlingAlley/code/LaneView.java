@@ -59,7 +59,7 @@ public class LaneView implements LaneObserver, ActionListener {
 	private JPanel makeFrame(Party party) {
 
 		initDone = false;
-		bowlers = party.getMembers();
+		bowlers = (Vector) party.getMembers();
 		int numBowlers = bowlers.size();
 
 		JPanel panel = new JPanel();
