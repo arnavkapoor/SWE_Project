@@ -32,6 +32,7 @@ import javax.swing.border.*;
 import javax.swing.event.*;
 import java.util.List;
 import java.util.*;
+import org.apache.log4j.Logger;
 
 /**
  * Constructor for GUI used to Add Parties to the waiting party queue.
@@ -56,6 +57,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 
 	private String selectedNick;
 	private String selectedMember;
+	static Logger log = Logger.getLogger(AddPartyView.class.getName());
 
 	public AddPartyView(ControlDeskView controlDesk, int max) {
 
@@ -94,7 +96,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 		try {
 			bowlerdb = new Vector(BowlerFile.getBowlers());
 		} catch (Exception e) {
-			System.err.println("File Error");
+			log.error("File Error");
 			bowlerdb = new Vector();
 		}
 		allBowlers = new JList(bowlerdb.toArray());
@@ -162,7 +164,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 		if (e.getSource().equals(addPatron)) {
 			if (selectedNick != null && party.size() < maxSize) {
 				if (party.contains(selectedNick)) {
-					System.err.println("Member already in Party");
+					log.error("Member already in Party");
 				} else {
 					party.add(selectedNick);
 					partyList.setListData(party.toArray());
@@ -230,10 +232,10 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 				party.add(newPatron.getNick());
 				partyList.setListData(party.toArray());
 			} else {
-				System.err.println( "A Bowler with that name already exists." );
+				log.error( "A Bowler with that name already exists." );
 			}
 		} catch (Exception e2) {
-			System.err.println("File I/O Error");
+			log.error("File I/O Error");
 		}
 	}
 
