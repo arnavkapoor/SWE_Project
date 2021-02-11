@@ -40,22 +40,24 @@
  *
  */
 
+import org.apache.log4j.Logger;
+
 import java.util.*;
 import java.io.*;
 
 class ControlDesk extends Thread {
-
+	static Logger log = Logger.getLogger(ControlDesk.class.getName());
 	/** The collection of Lanes */
-	private HashSet lanes;
+	final private HashSet lanes;
 
 	/** The party wait queue */
-	private Queue partyQueue;
+	final private Queue partyQueue;
 
 	/** The number of lanes represented */
-	private int numLanes;
+	final private int numLanes;
 	
 	/** The collection of subscribers */
-	private Vector subscribers;
+	final private Vector subscribers;
 
     /**
      * Constructor for the ControlDesk class
@@ -83,7 +85,7 @@ class ControlDesk extends Thread {
 	 * Main loop for ControlDesk's thread
 	 * 
 	 */
-	public void run() {
+	@Override public void run() {
 		while (true) {
 			
 			assignLane();
@@ -113,9 +115,9 @@ class ControlDesk extends Thread {
 			patron = BowlerFile.getBowlerInfo(nickName);
 
 		} catch (FileNotFoundException e) {
-			System.err.println("Error..." + e);
+			log.error("Error..." + e);
 		} catch (IOException e) {
-			System.err.println("Error..." + e);
+			log.error("Error..." + e);
 		}
 
 		return patron;
@@ -132,8 +134,8 @@ class ControlDesk extends Thread {
 		while (it.hasNext() && partyQueue.hasMoreElements()) {
 			Lane curLane = (Lane) it.next();
 
-			if (curLane.isPartyAssigned() == false) {
-				System.out.println("ok... assigning this party");
+			if (!curLane.isPartyAssigned()) {
+				log.info("ok... assigning this party");
 				curLane.assignParty(((Party) partyQueue.next()));
 			}
 		}
