@@ -43,14 +43,14 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 
 	final private int maxSize;
 
-	final private JFrame win;
-	final private JButton addPatron;
-	final private JButton	newPatron;
-	final private JButton remPatron;
-	final private JButton finished;
-	final private JList partyList;
-	final private JList allBowlers;
-	final private List party;
+	private JFrame win;
+	private JButton addPatron;
+	private JButton	newPatron;
+	private JButton remPatron;
+	private JButton finished;
+	private JList partyList;
+	private JList allBowlers;
+	private List party;
 	private List bowlerdb;
 
 	final private ControlDeskView controlDesk;
@@ -59,15 +59,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 	private String selectedMember;
 	static Logger log = Logger.getLogger(AddPartyView.class.getName());
 
-	public AddPartyView(ControlDeskView controlDesk, int max) {
-
-		this.controlDesk = controlDesk;
-		maxSize = max;
-
-		win = new JFrame("Add Party");
-		win.getContentPane().setLayout(new BorderLayout());
-		((JPanel) win.getContentPane()).setOpaque(false);
-
+	private JPanel setPanels() {
 		final JPanel colPanel = new JPanel();
 		colPanel.setLayout(new GridLayout(1, 3));
 
@@ -104,7 +96,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 		allBowlers.setFixedCellWidth(120);
 		JScrollPane bowlerPane = new JScrollPane(allBowlers);
 		bowlerPane.setVerticalScrollBarPolicy(
-			JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		allBowlers.addListSelectionListener(this);
 		bowlerPanel.add(bowlerPane);
 
@@ -146,17 +138,35 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 		colPanel.add(partyPanel);
 		colPanel.add(bowlerPanel);
 		colPanel.add(buttonPanel);
+		return colPanel;
+	}
 
+	public void centerWindow() {
+		Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
+		win.setLocation(
+				((screenSize.width) / 2) - ((win.getSize().width) / 2),
+				((screenSize.height) / 2) - ((win.getSize().height) / 2));
+		win.show();
+	}
+
+	public void setWindow() {
+		win = new JFrame("Add Party");
+		win.getContentPane().setLayout(new BorderLayout());
+		((JPanel) win.getContentPane()).setOpaque(false);
+	}
+	public AddPartyView(ControlDeskView controlDesk, int max) {
+
+		this.controlDesk = controlDesk;
+		maxSize = max;
+
+		setWindow();
+		final JPanel colPanel = setPanels();
 		win.getContentPane().add("Center", colPanel);
 
 		win.pack();
 
 		// Center Window on Screen
-		Dimension screenSize = (Toolkit.getDefaultToolkit()).getScreenSize();
-		win.setLocation(
-			((screenSize.width) / 2) - ((win.getSize().width) / 2),
-			((screenSize.height) / 2) - ((win.getSize().height) / 2));
-		win.show();
+		centerWindow();
 
 	}
 
