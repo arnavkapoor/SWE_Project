@@ -20,24 +20,25 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.*;
-
-import java.util.*;
-import java.text.*;
 
 public class NewPatronView implements ActionListener {
 
-	private int maxSize;
 
 	private JFrame win;
-	private JButton abort, finished;
-	private JLabel nickLabel, fullLabel, emailLabel;
-	private JTextField nickField, fullField, emailField;
-	private String nick, full, email;
+	private JButton abort;
+	private JButton finished;
+	private JLabel nickLabel;
+	private JLabel fullLabel;
+	private JLabel	emailLabel;
+	private JTextField nickField;
+	private JTextField fullField;
+	private JTextField emailField;
+	private String nick;
+	private String full;
+	private String email;
 
 	private boolean done;
 
-	private String selectedNick, selectedMember;
 	private AddPartyView addParty;
 
 	public NewPatronView(AddPartyView v) {
@@ -86,7 +87,6 @@ public class NewPatronView implements ActionListener {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(4, 1));
 
-		Insets buttonMargin = new Insets(4, 4, 4, 4);
 
 		finished = new JButton("Add Patron");
 		JPanel finishedPanel = new JPanel();
@@ -120,7 +120,7 @@ public class NewPatronView implements ActionListener {
 
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	@Override public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(abort)) {
 			done = true;
 			win.hide();
