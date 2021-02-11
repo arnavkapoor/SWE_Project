@@ -296,40 +296,40 @@ public class Lane extends Thread implements PinsetterObserver {
 	 */
 	public void receivePinsetterEvent(PinsetterEvent pe) {
 		
-			if (pe.pinsDownOnThisThrow() >=  0) {			// this is a real throw
+			if (pe.pinsDownOnThisThrow() >=  0) {            // this is a real throw
 				markScore(currentThrower, frameNumber + 1, pe.getThrowNumber(), pe.pinsDownOnThisThrow());
-	
+
 				// next logic handles the ?: what conditions dont allow them another throw?
 				// handle the case of 10th frame first
 				if (frameNumber == 9) {
 					if (pe.totalPinsDown() == 10) {
 						setter.resetPins();
-						if(pe.getThrowNumber() == 1) {
+						if (pe.getThrowNumber() == 1) {
 							tenthFrameStrike = true;
 						}
 					}
-				
+
 					if ((pe.totalPinsDown() != 10) && (pe.getThrowNumber() == 2 && !(tenthFrameStrike))) {
 						canThrowAgain = false;
 						//publish( lanePublish() );
 					}
-				
+
 					if (pe.getThrowNumber() == 3) {
 						canThrowAgain = false;
 						//publish( lanePublish() );
 					}
 				} else { // its not the 10th frame
-			
-					if (pe.pinsDownOnThisThrow() == 10) {		// threw a strike
+
+					if (pe.pinsDownOnThisThrow() == 10) {        // threw a strike
 						canThrowAgain = false;
 						//publish( lanePublish() );
 					} else if (pe.getThrowNumber() == 2) {
 						canThrowAgain = false;
 						//publish( lanePublish() );
-					} else if (pe.getThrowNumber() == 3)  
-						log.error("I'm here...");
+					}
 				}
-			} else {
+			}
+			else {
 				return; //  this is not a real throw, probably a reset
 			}
 	}
@@ -449,74 +449,57 @@ public class Lane extends Thread implements PinsetterObserver {
 			System.out.println("result was: " + curScore[i]);
 		}
 
-		for (int i = 0; i != current+2; i++){
+		for (int i = 0; i != current+2; i++) {
 			//Spare:
-			if( i%2 == 1 && curScore[i - 1] + curScore[i] == 10 && i < current - 1 && i < 19){
+			if (i % 2 == 1 && curScore[i - 1] + curScore[i] == 10 && i < current - 1 && i < 19) {
 				//This ball was a the second of a spare.
 				//Also, we're not on the current ball.
 				//Add the next ball to the ith one in cumul.
-				cumulScores[bowlIndex][(i/2)] += curScore[i+1] + curScore[i];
-			} else if( i < current && i%2 == 0 && curScore[i] == 10  && i < 18){
+				cumulScores[bowlIndex][(i / 2)] += curScore[i + 1] + curScore[i];
+			} else if (i < current && i % 2 == 0 && curScore[i] == 10 && i < 18) {
 				strikeballs = 0;
 				//This ball is the first ball, and was a strike.
 				//If we can get 2 balls after it, good add them to cumul.
-				if(curScore[i+3] != -1 || curScore[i+4] != -1) {
+				if (curScore[i + 3] != -1 || curScore[i + 4] != -1) {
 					strikeballs = 2;
-					//Add up the strike.
-					//Add the next two balls to the current cumulscore.
-					cumulScores[bowlIndex][i/2] += 10;
-					if ( i/2 > 0 ){
-						cumulScores[bowlIndex][i/2] += curScore[i+2] + cumulScores[bowlIndex][(i/2)-1];
+
+					cumulScores[bowlIndex][i / 2] += 10;
+					if (i / 2 > 0) {
+						cumulScores[bowlIndex][i / 2] += curScore[i + 2] + cumulScores[bowlIndex][(i / 2) - 1];
 					} else {
-						cumulScores[bowlIndex][i/2] += curScore[i+2];
+						cumulScores[bowlIndex][i / 2] += curScore[i + 2];
 					}
 
-					if (curScore[i+3] != -1){
-						cumulScores[bowlIndex][(i/2)] += curScore[i+3];
+					if (curScore[i + 3] != -1) {
+						cumulScores[bowlIndex][(i / 2)] += curScore[i + 3];
 					} else {
-						cumulScores[bowlIndex][(i/2)] += curScore[i+4];
+						cumulScores[bowlIndex][(i / 2)] += curScore[i + 4];
 					}
-				} else{
+				} else {
 					break;
 				}
-			}
-			else {
+			} else {
 				//We're dealing with a normal throw, add it and be on our way.
-				if( i%2 == 0 && i < 18){
-					if ( i/2 == 0 ) {
-						//First frame, first ball.  Set his cumul score to the first ball
-						if(curScore[i] != -2){
-							cumulScores[bowlIndex][i/2] += curScore[i];
-						}
-					} else if (i/2 != 9){
-						//add his last frame's cumul to this ball, make it this frame's cumul.
-						if(curScore[i] != -2){
-							cumulScores[bowlIndex][i/2] += cumulScores[bowlIndex][i/2 - 1] + curScore[i];
+				if (i < 18) {
+					if (i / 2 == 0 || i % 2 == 1) {
+						if (curScore[i] != -1)
+							cumulScores[bowlIndex][i / 2] += curScore[i];
+					} else {
+						if (curScore[i] != -1) {
+							cumulScores[bowlIndex][i / 2] += cumulScores[bowlIndex][i / 2 - 1] + curScore[i];
 						} else {
-							cumulScores[bowlIndex][i/2] += cumulScores[bowlIndex][i/2 - 1];
+							cumulScores[bowlIndex][i / 2] += cumulScores[bowlIndex][i / 2 - 1];
 						}
 					}
-				} else if (i < 18){
-					if(curScore[i] != -1 && i > 2){
-						if(curScore[i] != -2){
-							cumulScores[bowlIndex][i/2] += curScore[i];
-						}
-					}
-				}
-				if (i/2 == 9){
-					if (i == 18){
+				} else {
+					if (i == 18) {
 						cumulScores[bowlIndex][9] += cumulScores[bowlIndex][8];
 					}
-					if(curScore[i] != -2){
-						cumulScores[bowlIndex][9] += curScore[i];
-					}
-				} else if (i/2 == 10) {
-					if(curScore[i] != -2){
-						cumulScores[bowlIndex][9] += curScore[i];
-					}
+					cumulScores[bowlIndex][9] += curScore[i];
 				}
 			}
 		}
+
 		return totalScore;
 	}
 
