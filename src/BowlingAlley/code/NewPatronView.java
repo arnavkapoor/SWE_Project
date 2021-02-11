@@ -24,22 +24,19 @@ import javax.swing.border.*;
 public class NewPatronView implements ActionListener {
 
 
-	private JFrame win;
-	private JButton abort;
-	private JButton finished;
-	private JLabel nickLabel;
-	private JLabel fullLabel;
-	private JLabel	emailLabel;
-	private JTextField nickField;
-	private JTextField fullField;
-	private JTextField emailField;
+	final private JFrame win;
+	final private JButton abort;
+	final private JButton finished;
+	final private JTextField nickField;
+	final private JTextField fullField;
+	final private JTextField emailField;
 	private String nick;
 	private String full;
 	private String email;
 
 	private boolean done;
 
-	private AddPartyView addParty;
+	final private AddPartyView addParty;
 
 	public NewPatronView(AddPartyView v) {
 
@@ -60,21 +57,21 @@ public class NewPatronView implements ActionListener {
 
 		JPanel nickPanel = new JPanel();
 		nickPanel.setLayout(new FlowLayout());
-		nickLabel = new JLabel("Nick Name");
+		JLabel nickLabel = new JLabel("Nick Name");
 		nickField = new JTextField("", 15);
 		nickPanel.add(nickLabel);
 		nickPanel.add(nickField);
 
 		JPanel fullPanel = new JPanel();
 		fullPanel.setLayout(new FlowLayout());
-		fullLabel = new JLabel("Full Name");
+		JLabel fullLabel = new JLabel("Full Name");
 		fullField = new JTextField("", 15);
 		fullPanel.add(fullLabel);
 		fullPanel.add(fullField);
 
 		JPanel emailPanel = new JPanel();
 		emailPanel.setLayout(new FlowLayout());
-		emailLabel = new JLabel("E-Mail");
+		JLabel emailLabel = new JLabel("E-Mail");
 		emailField = new JTextField("", 15);
 		emailPanel.add(emailLabel);
 		emailPanel.add(emailField);
