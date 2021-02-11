@@ -41,19 +41,19 @@ import org.apache.log4j.Logger;
 
 public class AddPartyView implements ActionListener, ListSelectionListener {
 
-	private int maxSize;
+	final private int maxSize;
 
-	private JFrame win;
-	private JButton addPatron;
-	private JButton	newPatron;
-	private JButton remPatron;
-	private JButton finished;
-	private JList partyList;
-	private JList allBowlers;
-	private List party;
+	final private JFrame win;
+	final private JButton addPatron;
+	final private JButton	newPatron;
+	final private JButton remPatron;
+	final private JButton finished;
+	final private JList partyList;
+	final private JList allBowlers;
+	final private List party;
 	private List bowlerdb;
 
-	private ControlDeskView controlDesk;
+	final private ControlDeskView controlDesk;
 
 	private String selectedNick;
 	private String selectedMember;
@@ -160,31 +160,35 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 
 	}
 
-	@Override public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(addPatron)) {
-			if (selectedNick != null && party.size() < maxSize) {
-				if (party.contains(selectedNick)) {
-					log.error("Member already in Party");
-				} else {
-					party.add(selectedNick);
-					partyList.setListData(party.toArray());
-				}
-			}
+	private void actionPerformedAddPatron() {
+		if (party.contains(selectedNick)) {
+			log.error("Member already in Party");
+		} else {
+			party.add(selectedNick);
+			partyList.setListData(party.toArray());
 		}
-		if (e.getSource().equals(remPatron)) {
-			if (selectedMember != null) {
-				party.remove(selectedMember);
-				partyList.setListData(party.toArray());
-			}
+	}
+
+	private void actionPerformedFinished() {
+		if ( party != null && !party.isEmpty()) {
+			controlDesk.updateAddParty( this );
+		}
+		win.hide();
+	}
+
+	@Override public void actionPerformed(ActionEvent e) {
+		if (e.getSource().equals(addPatron) && (selectedNick != null && party.size() < maxSize) ) {
+			actionPerformedAddPatron();
+		}
+		if (e.getSource().equals(remPatron) && selectedMember != null) {
+			party.remove(selectedMember);
+			partyList.setListData(party.toArray());
 		}
 		if (e.getSource().equals(newPatron)) {
 			NewPatronView newPatron = new NewPatronView( this );
 		}
 		if (e.getSource().equals(finished)) {
-			if ( party != null && !party.isEmpty()) {
-				controlDesk.updateAddParty( this );
-			}
-			win.hide();
+			actionPerformedFinished();
 		}
 
 	}
