@@ -71,12 +71,12 @@
  */
 
 import java.util.*;
-import java.lang.Boolean;
+//import java.lang.Boolean;
 
 public class Pinsetter {
 
-	private Random rnd;
-	private Vector subscribers;
+	final private Random rnd;
+	final private Vector subscribers;
 
 	private boolean[] pins; 
 			/* 0-9 of state of pine, true for standing, 

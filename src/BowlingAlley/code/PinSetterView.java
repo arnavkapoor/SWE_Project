@@ -22,7 +22,6 @@ public class PinSetterView implements PinsetterObserver {
 
 
     final private Vector pinVect = new Vector ( );
-    final private JPanel firstRoll;
     final private JPanel secondRoll;
     private JPanel one;
     private JLabel oneL;
@@ -170,7 +169,7 @@ public class PinSetterView implements PinsetterObserver {
 	
 	JPanel top = new JPanel ( );
 	
-	firstRoll = new JPanel ( );
+	JPanel firstRoll = new JPanel ( );
 	firstRoll.setBackground( Color.yellow );
 	
 	secondRoll = new JPanel ( );
