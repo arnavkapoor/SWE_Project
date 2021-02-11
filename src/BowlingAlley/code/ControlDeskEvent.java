@@ -18,7 +18,7 @@ import java.util.*;
 public class ControlDeskEvent {
 
 	/** A representation of the wait queue, containing party names */
-	private Vector partyQueue;
+	final private Vector partyQueue;
 
     /**
      * Contstructor for the ControlDeskEvent

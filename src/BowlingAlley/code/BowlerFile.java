@@ -21,9 +21,11 @@
 
 import java.util.*;
 import java.io.*;
+import org.apache.log4j.Logger;
 
-class BowlerFile {
+final class BowlerFile {
 
+	static Logger log = Logger.getLogger(BowlerFile.class.getName());
 	/** The location of the bowelr database */
 	private static String BOWLER_DAT = "BOWLERS.DAT";
 
@@ -45,7 +47,7 @@ class BowlerFile {
 			// File format is nick\tfname\te-mail
 			String[] bowler = data.split("\t");
 			if (nickName.equals(bowler[0])) {
-				System.out.println(
+				log.info(
 					"Nick: "
 						+ bowler[0]
 						+ " Full: "
@@ -55,7 +57,7 @@ class BowlerFile {
 				return (new Bowler(bowler[0], bowler[1], bowler[2]));
 			}
 		}
-		System.out.println("Nick not found...");
+		log.info("Nick not found...");
 		return null;
 	}
 

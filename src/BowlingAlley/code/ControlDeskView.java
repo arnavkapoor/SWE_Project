@@ -17,36 +17,34 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.*;
 
 import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
-	private JButton addParty, finished, assign;
+	private JButton addParty;
+	private JButton finished;
+	private JButton assign;
 	private JFrame win;
 	private JList partyList;
 	
 	/** The maximum  number of members in a party */
-	private int maxMembers;
+	final private int maxMembers;
 	
-	private ControlDesk controlDesk;
+	final private ControlDesk controlDesk;
 
 	/**
 	 * Displays a GUI representation of the ControlDesk
 	 *
 	 */
-
-	public ControlDeskView(ControlDesk controlDesk, int maxMembers) {
-
-		this.controlDesk = controlDesk;
-		this.maxMembers = maxMembers;
-		int numLanes = controlDesk.getNumLanes();
-
+	private void setWindow() {
 		win = new JFrame("Control Desk");
 		win.getContentPane().setLayout(new BorderLayout());
 		((JPanel) win.getContentPane()).setOpaque(false);
+	}
 
+	private JPanel setPanel() {
+		int numLanes = controlDesk.getNumLanes();
 		JPanel colPanel = new JPanel();
 		colPanel.setLayout(new BorderLayout());
 
@@ -107,7 +105,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		partyList.setVisibleRowCount(10);
 		JScrollPane partyPane = new JScrollPane(partyList);
 		partyPane.setVerticalScrollBarPolicy(
-			JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		partyPanel.add(partyPane);
 		//		partyPanel.add(partyList);
 
@@ -115,6 +113,18 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		colPanel.add(controlsPanel, "East");
 		colPanel.add(laneStatusPanel, "Center");
 		colPanel.add(partyPanel, "West");
+		return colPanel;
+	}
+
+	public ControlDeskView(ControlDesk controlDesk, int maxMembers) {
+
+		this.controlDesk = controlDesk;
+		this.maxMembers = maxMembers;
+
+		setWindow();
+
+
+		JPanel colPanel = setPanel();
 
 		win.getContentPane().add("Center", colPanel);
 
@@ -122,7 +132,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
 		/* Close program when this window closes */
 		win.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
+			@Override public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
@@ -143,7 +153,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 	 *
 	 */
 
-	public void actionPerformed(ActionEvent e) {
+	@Override public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(addParty)) {
 			AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
 		}
@@ -174,7 +184,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 	 *
 	 */
 
-	public void receiveControlDeskEvent(ControlDeskEvent ce) {
+	@Override public void receiveControlDeskEvent(ControlDeskEvent ce) {
 		partyList.setListData(((Vector) ce.getPartyQueue()));
 	}
 }
