@@ -160,7 +160,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	private int gameNumber;
 	
 	private Bowler currentThrower;			// = the thrower who just took a throw
-	Logger log = Logger.getLogger(Lane.class.getName());
+	static Logger log = Logger.getLogger(Lane.class.getName());
 
 	/** Lane()
 	 * 
