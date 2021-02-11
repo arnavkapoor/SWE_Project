@@ -9,7 +9,7 @@ public class drive {
 		int maxPatronsPerParty=5;
 
 		ControlDesk controlDesk = new ControlDesk( numLanes );
-		ControlDeskView cdv = new ControlDeskView( controlDesk, maxPatronsPerParty);
+		ControlDeskView cdv = new ControlDeskView(controlDesk, maxPatronsPerParty);
 		controlDesk.subscribe( cdv );
 
 	}

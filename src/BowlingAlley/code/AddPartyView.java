@@ -68,7 +68,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 		win.getContentPane().setLayout(new BorderLayout());
 		((JPanel) win.getContentPane()).setOpaque(false);
 
-		JPanel colPanel = new JPanel();
+		final JPanel colPanel = new JPanel();
 		colPanel.setLayout(new GridLayout(1, 3));
 
 		// Party Panel
@@ -178,7 +178,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 			}
 		}
 		if (e.getSource().equals(newPatron)) {
-			//NewPatronView newPatron = new NewPatronView( this );
+			NewPatronView newPatron = new NewPatronView( this );
 		}
 		if (e.getSource().equals(finished)) {
 			if ( party != null && !party.isEmpty()) {
