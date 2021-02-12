@@ -138,9 +138,9 @@ import org.apache.log4j.Logger;
 
 public class Lane extends Thread implements PinsetterObserver {	
 	private Party party;
-	private Pinsetter setter;
-	private Map scores;
-	private List subscribers;
+	final private Pinsetter setter;
+	final private Map scores;
+	final private List subscribers;
 
 	private boolean gameIsHalted;
 

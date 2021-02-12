@@ -9,10 +9,10 @@
 import java.util.*;
 import java.io.*;
 
-public class ScoreHistoryFile {
+final public class ScoreHistoryFile {
 
 	private static String SCOREHISTORY_DAT = "SCOREHISTORY.DAT";
-
+	private ScoreHistoryFile() {}
 	public static void addScore(String nick, String date, String score)
 		throws IOException, FileNotFoundException {
 

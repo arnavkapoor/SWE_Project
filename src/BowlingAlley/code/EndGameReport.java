@@ -19,12 +19,12 @@ import java.util.*;
 
 public class EndGameReport implements ActionListener, ListSelectionListener {
 
-	private JFrame win;
-	private JButton printButton;
-	private JButton	finished;
-	private JList memberList;
+	final private JFrame win;
+	final private JButton printButton;
+	final private JButton finished;
+	//private JList memberList;
 	//private List myVector;
-	private List retVal;
+	final private List retVal;
 
 	private int result;
 
@@ -51,7 +51,8 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		Iterator iter = (party.getMembers()).iterator();
 		while (iter.hasNext()){
 			myVector.add( ((Bowler)iter.next()).getNick() );
-		}	
+		}
+		JList memberList;
 		memberList = new JList(myVector);
 		memberList.setFixedCellWidth(120);
 		memberList.setVisibleRowCount(5);

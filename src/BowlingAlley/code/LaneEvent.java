@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class LaneEvent {
 
-	private Party p;
+	final private Party p;
 	int frame;
 	int ball;
 	Bowler bowler;

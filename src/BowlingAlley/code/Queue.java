@@ -12,7 +12,7 @@ import java.util.Vector;
 import java.util.List;
  
 public class Queue {
-	private List v;
+	final private List v;
 	
 	/** Queue()
 	 * 

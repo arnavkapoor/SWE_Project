@@ -19,9 +19,9 @@ import javax.swing.*;
 
 public class EndGamePrompt implements ActionListener {
 
-	private JFrame win;
-	private JButton yesButton;
-	private JButton noButton;
+	final private JFrame win;
+	final private JButton yesButton;
+	final private JButton noButton;
 
 	private int result;
 

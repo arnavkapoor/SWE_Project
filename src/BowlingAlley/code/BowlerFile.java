@@ -37,6 +37,7 @@ final class BowlerFile {
      * @return a Bowler object
      * 
      */
+	private BowlerFile() {}
 
 	public static Bowler getBowlerInfo(String nickName)
 		throws IOException, FileNotFoundException {

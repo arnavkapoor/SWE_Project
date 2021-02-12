@@ -8,9 +8,9 @@
 
 public class Score {
 
-    private String nick;
-    private String date;
-    private String score;
+    final private String nick;
+    final private String date;
+    final private String score;
 
     public Score( String nick, String date, String score ) {
 		this.nick=nick;

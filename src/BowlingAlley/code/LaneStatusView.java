@@ -14,18 +14,18 @@ import javax.swing.*;
 
 public class LaneStatusView implements ActionListener, LaneObserver, PinsetterObserver {
 
-	private JPanel jp;
+	final private JPanel jp;
 
-	private JLabel curBowler;
-	private JLabel pinsDown;
+	final private JLabel curBowler;
+	final private JLabel pinsDown;
 	private JLabel foul;
-	private JButton viewLane;
-	private JButton viewPinSetter;
-	private JButton maintenance;
+	final private JButton viewLane;
+	final private JButton viewPinSetter;
+	final private JButton maintenance;
 
-	private PinSetterView psv;
-	private LaneView lv;
-	private Lane lane;
+	final private PinSetterView psv;
+	final private LaneView lv;
+	final private Lane lane;
 	int laneNum;
 
 	boolean laneShowing;
@@ -52,6 +52,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		JLabel cLabel = new JLabel( "Now Bowling: " );
 		curBowler = new JLabel( "(no one)" );
 		JLabel fLabel = new JLabel( "Foul: " );
+		JLabel foul;
 		foul = new JLabel( " " );
 		JLabel pdLabel = new JLabel( "Pins Down: " );
 		pinsDown = new JLabel( "0" );
@@ -105,23 +106,21 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 	}
 
 	@Override public void actionPerformed( ActionEvent e ) {
-		if ( lane.isPartyAssigned() ) { 
-			if (e.getSource().equals(viewPinSetter)) {
-				if ( psShowing == false ) {
+		if ( lane.isPartyAssigned() && e.getSource().equals(viewPinSetter)) {
+				if ( !psShowing) {
 					psv.show();
 					psShowing=true;
-				} else if ( psShowing == true ) {
+				} else if ( psShowing) {
 					psv.hide();
 					psShowing=false;
 				}
-			}
 		}
 		if (e.getSource().equals(viewLane)) {
 			if ( lane.isPartyAssigned() ) { 
-				if ( laneShowing == false ) {
+				if ( !laneShowing ) {
 					lv.show();
 					laneShowing=true;
-				} else if ( laneShowing == true ) {
+				} else if ( laneShowing ) {
 					lv.hide();
 					laneShowing=false;
 				}
@@ -140,7 +139,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		if ( le.isMechanicalProblem() ) {
 			maintenance.setBackground( Color.RED );
 		}	
-		if ( lane.isPartyAssigned() == false ) {
+		if ( !lane.isPartyAssigned() ) {
 			viewLane.setEnabled( false );
 			viewPinSetter.setEnabled( false );
 		} else {
