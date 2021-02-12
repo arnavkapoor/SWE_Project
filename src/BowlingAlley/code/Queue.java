@@ -1,13 +1,4 @@
-/* Queue.java
- *
- *  Version
- *  $Id$
- * 
- *  Revisions:
- * 		$Log$
- * 
- */
- 
+
 import java.util.Vector;
 import java.util.List;
  

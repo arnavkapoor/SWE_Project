@@ -1,24 +1,4 @@
-/* AddPartyView.java
- *
- *  Version:
- * 		 $Id$
- * 
- *  Revisions:
- * 		$Log: AddPartyView.java,v $
- * 		Revision 1.7  2003/02/20 02:05:53  ???
- * 		Fixed addPatron so that duplicates won't be created.
- * 		
- * 		Revision 1.6  2003/02/09 20:52:46  ???
- * 		Added comments.
- * 		
- * 		Revision 1.5  2003/02/02 17:42:09  ???
- * 		Made updates to migrate to observer model.
- * 		
- * 		Revision 1.4  2003/02/02 16:29:52  ???
- * 		Added ControlDeskEvent and ControlDeskObserver. Updated Queue to allow access to Vector so that contents could be viewed without destroying. Implemented observer model for most of ControlDesk.
- * 		
- * 
- */
+
 
 /**
  * Class for GUI components need to add a party
@@ -41,12 +21,13 @@ import org.apache.log4j.Logger;
 
 public class AddPartyView implements ActionListener, ListSelectionListener {
 
+	// max number of Patrons
 	final private int maxSize;
 
-	private JFrame win;
-	private JButton addPatron;
+	private JFrame win; // party window
+	private JButton addPatron; // addPatron button
 	private JButton	newPatron;
-	private JButton remPatron;
+	private JButton remPatron; //rem patrons
 	private JButton finished;
 	private JList partyList;
 	private JList allBowlers;
@@ -77,7 +58,6 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 		partyList.setVisibleRowCount(5);
 		partyList.addListSelectionListener(this);
 		JScrollPane partyPane = new JScrollPane(partyList);
-		//        partyPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		partyPanel.add(partyPane);
 
 		// Bowler Database

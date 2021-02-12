@@ -1,12 +1,3 @@
-/* ControlDeskView.java
- *
- *  Version:
- *			$Id$
- * 
- *  Revisions:
- * 		$Log$
- * 
- */
 
 /**
  * Class for representation of the control desk
