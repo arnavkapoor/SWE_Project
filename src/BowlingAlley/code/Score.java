@@ -30,7 +30,7 @@ public class Score {
 		return score;
 	}
 
-	public String toString() {
+	@Override public String toString() {
 		return nick + "\t" + date + "\t" + score;
 	}
 

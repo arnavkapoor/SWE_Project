@@ -3,6 +3,8 @@
  *
  */
 
+import org.apache.log4j.Logger;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -10,7 +12,7 @@ import java.util.*;
 
 public class LaneView implements LaneObserver, ActionListener {
 
-	private int roll;
+	//private int roll;
 	private boolean initDone = true;
 
 	JFrame frame;
@@ -28,7 +30,7 @@ public class LaneView implements LaneObserver, ActionListener {
 
 	JButton maintenance;
 	Lane lane;
-
+	static Logger log = Logger.getLogger(LaneView.class.getName());
 	public LaneView(Lane lane, int laneNum) {
 
 		this.lane = lane;
@@ -39,7 +41,7 @@ public class LaneView implements LaneObserver, ActionListener {
 		cpanel.setLayout(new BorderLayout());
 
 		frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
+			@Override public void windowClosing(WindowEvent e) {
 				frame.hide();
 			}
 		});
@@ -122,7 +124,7 @@ public class LaneView implements LaneObserver, ActionListener {
 		return panel;
 	}
 
-	public void receiveLaneEvent(LaneEvent le) {
+	@Override public void receiveLaneEvent(LaneEvent le) {
 		if (lane.isPartyAssigned()) {
 			int numBowlers = le.getParty().getMembers().size();
 			while (!initDone) {
@@ -136,7 +138,7 @@ public class LaneView implements LaneObserver, ActionListener {
 			if (le.getFrameNum() == 1
 				&& le.getBall() == 0
 				&& le.getIndex() == 0) {
-				System.out.println("Making the frame.");
+				log.info("Making the frame.");
 				cpanel.removeAll();
 				cpanel.add(makeFrame(le.getParty()), "Center");
 
@@ -200,7 +202,7 @@ public class LaneView implements LaneObserver, ActionListener {
 		}
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	@Override public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(maintenance)) {
 			lane.pauseGame();
 		}

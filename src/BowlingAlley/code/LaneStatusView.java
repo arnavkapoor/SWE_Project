@@ -9,16 +9,19 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
+//import javax.swing.border.*;
+//import javax.swing.event.*;
 
 public class LaneStatusView implements ActionListener, LaneObserver, PinsetterObserver {
 
 	private JPanel jp;
 
-	private JLabel curBowler, foul, pinsDown;
+	private JLabel curBowler;
+	private JLabel pinsDown;
+	private JLabel foul;
 	private JButton viewLane;
-	private JButton viewPinSetter, maintenance;
+	private JButton viewPinSetter;
+	private JButton maintenance;
 
 	private PinSetterView psv;
 	private LaneView lv;
@@ -101,7 +104,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		return jp;
 	}
 
-	public void actionPerformed( ActionEvent e ) {
+	@Override public void actionPerformed( ActionEvent e ) {
 		if ( lane.isPartyAssigned() ) { 
 			if (e.getSource().equals(viewPinSetter)) {
 				if ( psShowing == false ) {
@@ -132,7 +135,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		}
 	}
 
-	public void receiveLaneEvent(LaneEvent le) {
+	@Override public void receiveLaneEvent(LaneEvent le) {
 		curBowler.setText( ( (Bowler)le.getBowler()).getNickName() );
 		if ( le.isMechanicalProblem() ) {
 			maintenance.setBackground( Color.RED );
@@ -146,7 +149,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		}
 	}
 
-	public void receivePinsetterEvent(PinsetterEvent pe) {
+	@Override public void receivePinsetterEvent(PinsetterEvent pe) {
 		pinsDown.setText( ( new Integer(pe.totalPinsDown()) ).toString() );
 //		foul.setText( ( new Boolean(pe.isFoulCommited()) ).toString() );
 		

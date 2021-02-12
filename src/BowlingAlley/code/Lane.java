@@ -188,7 +188,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	 * 
 	 * entry point for execution of this lane 
 	 */
-	public void run() {
+	@Override public void run() {
 		
 		while (true) {
 			if (partyAssigned && !gameFinished) {	// we have a party on this lane, 
@@ -294,7 +294,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	 * 
 	 * @param pe 		The pinsetter event that has been received.
 	 */
-	public void receivePinsetterEvent(PinsetterEvent pe) {
+	@Override public void receivePinsetterEvent(PinsetterEvent pe) {
 		
 			if (pe.pinsDownOnThisThrow() >=  0) {            // this is a real throw
 				markScore(currentThrower, frameNumber + 1, pe.getThrowNumber(), pe.pinsDownOnThisThrow());

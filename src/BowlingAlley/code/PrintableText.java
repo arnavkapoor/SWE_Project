@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.print.*;
 import java.awt.geom.*;
 import java.awt.font.*;
-import java.text.*;
+//import java.text.*;
 
 public class PrintableText implements Printable {
 	String text;
@@ -17,7 +17,7 @@ public class PrintableText implements Printable {
 		text = t;
 	}
 
-	public int print(Graphics g, PageFormat pageFormat, int pageIndex) {
+	@Override public int print(Graphics g, PageFormat pageFormat, int pageIndex) {
 		if (pageIndex > 0) {
 			return NO_SUCH_PAGE;
 		}

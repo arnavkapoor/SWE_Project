@@ -31,7 +31,7 @@ public class Queue {
 	}
 	
 	public boolean hasMoreElements() {
-		return v.size() != 0;
+		return (!v.isEmpty());
 	}
 
 	public List asVector() {

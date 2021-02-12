@@ -5,24 +5,27 @@
  */
 
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.util.Vector;
 import java.util.Iterator;
 import java.net.*;
-import java.awt.*;
+//import java.awt.*;
 import java.awt.print.*;
 
 public class ScoreReport {
 
 	private String content;
-	
+
+	static Logger log = Logger.getLogger(ScoreReport.class.getName());
 	public ScoreReport( Bowler bowler, int[] scores, int games ) {
 		String nick = bowler.getNick();
 		String full = bowler.getFullName();
 		Vector v = null;
 		try{
 			v = ScoreHistoryFile.getScores(nick);
-		} catch (Exception e){System.err.println("Error: " + e);}
+		} catch (Exception e){log.error("Error: " + e);}
 		
 		Iterator scoreIt = v.iterator();
 		
@@ -60,7 +63,7 @@ public class ScoreReport {
 				new BufferedWriter(
 					new OutputStreamWriter(s.getOutputStream(), "8859_1"));
 
-			String boundary = "DataSeparatorString";
+			//String boundary = "DataSeparatorString";
 
 			// here you are supposed to send your username
 			sendln(in, out, "HELO world");
@@ -78,7 +81,7 @@ public class ScoreReport {
 			sendln(in, out, "QUIT");
 			s.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Error: " + e);
 		}
 	}
 
@@ -93,7 +96,7 @@ public class ScoreReport {
 			try {
 				job.print();
 			} catch (PrinterException e) {
-				System.out.println(e);
+				log.error(e);
 			}
 		}
 
@@ -104,10 +107,10 @@ public class ScoreReport {
 			out.write(s + "\r\n");
 			out.flush();
 			// System.out.println(s);
-			s = in.readLine();
+			// s = in.readLine();
 			// System.out.println(s);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Error: " + e);
 		}
 	}
 
@@ -117,7 +120,7 @@ public class ScoreReport {
 			out.flush();
 			System.out.println(s);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Error: " + e);
 		}
 	}
 

@@ -11,20 +11,21 @@ import org.apache.log4j.Logger;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
+//import javax.swing.border.*;
+//import javax.swing.event.*;
 
-import java.util.*;
-import java.text.*;
+//import java.util.*;
+//import java.text.*;
 
 public class EndGamePrompt implements ActionListener {
 
 	private JFrame win;
-	private JButton yesButton, noButton;
+	private JButton yesButton;
+	private JButton noButton;
 
 	private int result;
 
-	private String selectedNick, selectedMember;
+	//private String selectedNick, selectedMember;
 	static Logger log = Logger.getLogger(EndGamePrompt.class.getName());
 
 	public EndGamePrompt( String partyName ) {
@@ -85,7 +86,7 @@ public class EndGamePrompt implements ActionListener {
 
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	@Override public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(yesButton)) {		
 			result=1;
 		}

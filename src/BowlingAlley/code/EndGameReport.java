@@ -15,14 +15,15 @@ import javax.swing.border.*;
 import javax.swing.event.*;
 import java.util.List;
 import java.util.*;
-import java.text.*;
+//import java.text.*;
 
 public class EndGameReport implements ActionListener, ListSelectionListener {
 
 	private JFrame win;
-	private JButton printButton, finished;
+	private JButton printButton;
+	private JButton	finished;
 	private JList memberList;
-	private List myVector;
+	//private List myVector;
 	private List retVal;
 
 	private int result;
@@ -100,7 +101,7 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	@Override public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(printButton)) {		
 			//Add selected to the vector.
 			retVal.add(selectedMember);
@@ -112,7 +113,7 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 
 	}
 
-	public void valueChanged(ListSelectionEvent e) {
+	@Override public void valueChanged(ListSelectionEvent e) {
 		selectedMember =
 			((String) ((JList) e.getSource()).getSelectedValue());
 	}
