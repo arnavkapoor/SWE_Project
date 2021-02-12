@@ -76,7 +76,7 @@ import java.util.*;
 public class Pinsetter {
 
 	final private Random rnd;
-	final private Vector subscribers;
+	final private List subscribers;
 
 	private boolean[] pins; 
 			/* 0-9 of state of pine, true for standing, 

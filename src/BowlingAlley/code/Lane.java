@@ -132,6 +132,7 @@
  */
 
 import java.util.*;
+
 import org.apache.log4j.Logger;
 
 
@@ -328,6 +329,9 @@ public class Lane extends Thread implements PinsetterObserver {
 					}
 				}
 			}
+			else {
+				return; //  this is not a real throw, probably a reset
+			}
 	}
 	
 	/** resetBowlerIterator()
@@ -429,6 +433,8 @@ public class Lane extends Thread implements PinsetterObserver {
 	 */
 	private int getScore( Bowler Cur, int frame) {
 		int[] curScore;
+
+		int strikeballs = 0;
 		int totalScore = 0;
 
 		curScore = (int[]) scores.get(Cur);
@@ -448,9 +454,12 @@ public class Lane extends Thread implements PinsetterObserver {
 				//Add the next ball to the ith one in cumul.
 				cumulScores[bowlIndex][(i / 2)] += curScore[i + 1] + curScore[i];
 			} else if (i < current && i % 2 == 0 && curScore[i] == 10 && i < 18) {
+				strikeballs = 0;
 				//This ball is the first ball, and was a strike.
 				//If we can get 2 balls after it, good add them to cumul.
 				if (curScore[i + 3] != -1 || curScore[i + 4] != -1) {
+					strikeballs = 2;
+
 					cumulScores[bowlIndex][i / 2] += 10;
 					if (i / 2 > 0) {
 						cumulScores[bowlIndex][i / 2] += curScore[i + 2] + cumulScores[bowlIndex][(i / 2) - 1];
@@ -508,6 +517,9 @@ public class Lane extends Thread implements PinsetterObserver {
 	 * 
 	 * @return true if the game is done, false otherwise
 	 */
+	public boolean isGameFinished() {
+		return gameFinished;
+	}
 
 	/** subscribe
 	 * 
@@ -540,9 +552,10 @@ public class Lane extends Thread implements PinsetterObserver {
 
 	public void publish( LaneEvent event ) {
 		if(  !(subscribers.isEmpty())) {
-
-			for (Object subscriber : subscribers) {
-				((LaneObserver) subscriber).receiveLaneEvent(event);
+			Iterator eventIterator = subscribers.iterator();
+			
+			while ( eventIterator.hasNext() ) {
+				( (LaneObserver) eventIterator.next()).receiveLaneEvent( event );
 			}
 		}
 	}

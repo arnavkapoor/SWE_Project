@@ -9,9 +9,10 @@
  */
  
 import java.util.Vector;
+import java.util.List;
  
 public class Queue {
-	private Vector v;
+	private List v;
 	
 	/** Queue()
 	 * 
@@ -26,14 +27,14 @@ public class Queue {
 	}
 
 	public void add(Object o) {
-		v.addElement(o);
+		v.add(o);
 	}
 	
 	public boolean hasMoreElements() {
 		return v.size() != 0;
 	}
 
-	public Vector asVector() {
+	public List asVector() {
 		return v;
 	}
 	

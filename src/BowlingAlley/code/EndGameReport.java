@@ -6,12 +6,14 @@
  * Window>Preferences>Java>Code Generation.
  */
 
+import org.apache.log4j.Logger;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
-
+import java.util.List;
 import java.util.*;
 import java.text.*;
 
@@ -20,12 +22,13 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 	private JFrame win;
 	private JButton printButton, finished;
 	private JList memberList;
-	private Vector myVector;
-	private Vector retVal;
+	private List myVector;
+	private List retVal;
 
 	private int result;
 
 	private String selectedMember;
+	static Logger log = Logger.getLogger(EndGameReport.class.getName());
 
 	public EndGameReport( String partyName, Party party ) {
 	
@@ -63,7 +66,7 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(2, 1));
 
-		Insets buttonMargin = new Insets(4, 4, 4, 4);
+		//Insets buttonMargin = new Insets(4, 4, 4, 4);
 
 		printButton = new JButton("Print Report");
 		JPanel printButtonPanel = new JPanel();
@@ -114,12 +117,12 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 			((String) ((JList) e.getSource()).getSelectedValue());
 	}
 
-	public Vector getResult() {
+	public List getResult() {
 		while ( result == 0 ) {
 			try {
 				Thread.sleep(10);
 			} catch ( InterruptedException e ) {
-				System.err.println( "Interrupted" );
+				log.error( "Interrupted" );
 			}
 		}
 		return retVal;	
@@ -130,7 +133,7 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 	}
 
 	public static void main( String args[] ) {
-		Vector bowlers = new Vector();
+		List bowlers = new Vector();
 		for ( int i=0; i<4; i++ ) {
 			bowlers.add( new Bowler( "aaaaa", "aaaaa", "aaaaa" ) );
 		}

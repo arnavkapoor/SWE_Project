@@ -17,7 +17,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-
 import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
@@ -79,7 +78,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		laneStatusPanel.setLayout(new GridLayout(numLanes, 1));
 		laneStatusPanel.setBorder(new TitledBorder("Lane Status"));
 
-		HashSet lanes=controlDesk.getLanes();
+		Set lanes = controlDesk.getLanes();
 		Iterator it = lanes.iterator();
 		int laneCount=0;
 		while (it.hasNext()) {

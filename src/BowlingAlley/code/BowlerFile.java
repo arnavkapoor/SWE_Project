@@ -26,7 +26,7 @@ import org.apache.log4j.Logger;
 final class BowlerFile {
 
 	static Logger log = Logger.getLogger(BowlerFile.class.getName());
-	/** The location of the bowelr database */
+	/** The location of the bowler database */
 	private static String BOWLER_DAT = "BOWLERS.DAT";
 
     /**
@@ -91,10 +91,10 @@ final class BowlerFile {
      * 
      */
 
-	public static Vector getBowlers()
+	public static List getBowlers()
 		throws IOException, FileNotFoundException {
 
-		Vector allBowlers = new Vector();
+		List allBowlers = new Vector();
 
 		BufferedReader in = new BufferedReader(new FileReader(BOWLER_DAT));
 		String data;

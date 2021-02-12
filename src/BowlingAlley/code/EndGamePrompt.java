@@ -6,6 +6,8 @@
  * Window>Preferences>Java>Code Generation.
  */
 
+import org.apache.log4j.Logger;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -23,6 +25,7 @@ public class EndGamePrompt implements ActionListener {
 	private int result;
 
 	private String selectedNick, selectedMember;
+	static Logger log = Logger.getLogger(EndGamePrompt.class.getName());
 
 	public EndGamePrompt( String partyName ) {
 
@@ -48,7 +51,7 @@ public class EndGamePrompt implements ActionListener {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1, 2));
 
-		Insets buttonMargin = new Insets(4, 4, 4, 4);
+		//Insets buttonMargin = new Insets(4, 4, 4, 4);
 
 		yesButton = new JButton("Yes");
 		JPanel yesButtonPanel = new JPanel();
@@ -97,7 +100,7 @@ public class EndGamePrompt implements ActionListener {
 			try {
 				Thread.sleep(10);
 			} catch ( InterruptedException e ) {
-				System.err.println( "Interrupted" );
+				log.error( "Interrupted" );
 			}
 		}
 		return result;	
