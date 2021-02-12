@@ -104,7 +104,7 @@ public class EndGamePrompt implements ActionListener {
 	}
 	
 	public void distroy() {
-		win.setVisible(False);
+		win.setVisible(false);
 	}
 	
 }
