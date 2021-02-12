@@ -24,6 +24,7 @@
  */
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class LaneEvent {
 
@@ -32,13 +33,13 @@ public class LaneEvent {
 	int ball;
 	Bowler bowler;
 	int[][] cumulScore;
-	HashMap score;
+	Map score;
 	int index;
 	int frameNum;
 	int[] curScores;
 	boolean mechProb;
 	
-	public LaneEvent( Party pty, int theIndex, Bowler theBowler, int[][] theCumulScore, HashMap theScore, int theFrameNum, int[] theCurScores, int theBall, boolean mechProblem) {
+	public LaneEvent(Party pty, int theIndex, Bowler theBowler, int[][] theCumulScore, Map theScore, int theFrameNum, int[] theCurScores, int theBall, boolean mechProblem) {
 		p = pty;
 		index = theIndex;
 		bowler = theBowler;
@@ -58,7 +59,7 @@ public class LaneEvent {
 		return frameNum;
 	}
 	
-	public HashMap getScore( ) {
+	public Map getScore( ) {
 		return score;
 	}
 

@@ -165,7 +165,7 @@ public class LaneView implements LaneObserver, ActionListener {
 				for (int i = 0; i <= le.getFrameNum() - 1; i++) {
 					if (lescores[k][i] != 0)
 						scoreLabel[k][i].setText(
-							(new Integer(lescores[k][i])).toString());
+							(Integer.valueOf(lescores[k][i])).toString());
 				}
 				for (int i = 0; i < 21; i++) {
 					if (((int[]) ((HashMap) le.getScore())
@@ -191,8 +191,8 @@ public class LaneView implements LaneObserver, ActionListener {
 							ballLabel[k][i].setText("F");
 						} else
 							ballLabel[k][i].setText(
-								(new Integer(((int[]) ((HashMap) le.getScore())
-									.get(bowlers.get(k)))[i]))
+								(Integer.valueOf(((int[]) ((HashMap) le.getScore())
+										.get(bowlers.get(k)))[i]))
 									.toString());
 				}
 			}
