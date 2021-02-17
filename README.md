@@ -6,6 +6,11 @@ Team Members:
 * Anurag Sahu
 * Vivek Chandela
 
+# Video Link
+https://iiitaphyd-my.sharepoint.com/:f:/g/personal/arnav_kapoor_research_iiit_ac_in/EvmFEnEZ6VBCjd-A_JGD_B8BR7zQ_C74p9DDoBLDdNgBBA?e=1k11V8
+
+# GitHub Link
+https://github.com/arnavkapoor/SWE_Project
 
 # Bowling Alley
 
