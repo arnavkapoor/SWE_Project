@@ -15,6 +15,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 	private JButton addParty;
 	private JButton finished;
 	private JButton assign;
+	private JButton scoreHistory;
 	private JFrame win;
 	private JList partyList;
 	
@@ -50,12 +51,20 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		addPartyPanel.add(addParty);
 		controlsPanel.add(addPartyPanel);
 
-		assign = new JButton("Assign Lanes");
-		JPanel assignPanel = new JPanel();
-		assignPanel.setLayout(new FlowLayout());
-		assign.addActionListener(this);
-		assignPanel.add(assign);
-//		controlsPanel.add(assignPanel);
+		scoreHistory = new JButton("Score History");
+		JPanel scoreHistoryPanel = new JPanel();
+		scoreHistoryPanel.setLayout(new FlowLayout());
+		scoreHistory.addActionListener(this);
+		scoreHistoryPanel.add(scoreHistory);
+		controlsPanel.add(scoreHistoryPanel);
+
+
+		// assign = new JButton("Assign Lanes");
+		// JPanel assignPanel = new JPanel();
+		// assignPanel.setLayout(new FlowLayout());
+		// assign.addActionListener(this);
+		// assignPanel.add(assign);
+		// controlsPanel.add(assignPanel);
 
 		finished = new JButton("Finished");
 		JPanel finishedPanel = new JPanel();
@@ -147,13 +156,19 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		if (e.getSource().equals(addParty)) {
 			AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
 		}
-		if (e.getSource().equals(assign)) {
-			controlDesk.assignLane();
-		}
+		// if (e.getSource().equals(assign)) {
+		// 	controlDesk.assignLane();
+		// }
 		if (e.getSource().equals(finished)) {
 			win.hide();
 			System.exit(0);
 		}
+		if (e.getSource().equals(scoreHistory)) {
+			
+			win.hide();
+			System.exit(0);
+		}
+
 	}
 
 	/**
