@@ -109,7 +109,7 @@ public class LaneView implements LaneObserver, ActionListener {
 			pins[i].setLayout(new GridLayout(0, 10));
 			for (int k = 0; k != 10; k++) {
 				scores[i][k] = new JPanel();
-				scoreLabel[i][k] = new JLabel("  ", SwingConstants.CENTER);
+				scoreLabel[i][k] = new JLabel(" ", SwingConstants.CENTER);
 				scores[i][k].setBorder(
 					BorderFactory.createLineBorder(Color.BLACK));
 				scores[i][k].setLayout(new GridLayout(0, 1));
@@ -128,20 +128,17 @@ public class LaneView implements LaneObserver, ActionListener {
 		if (lane.isPartyAssigned()) {
 			int numBowlers = le.getParty().getMembers().size();
 			while (!initDone) {
-				//System.out.println("chillin' here.");
 				try {
 					Thread.sleep(1);
 				} catch (Exception e) {
 				}
 			}
-
 			if (le.getFrameNum() == 1
 				&& le.getBall() == 0
 				&& le.getIndex() == 0) {
 				log.info("Making the frame.");
 				cpanel.removeAll();
 				cpanel.add(makeFrame(le.getParty()), "Center");
-
 				// Button Panel
 				JPanel buttonPanel = new JPanel();
 				buttonPanel.setLayout(new FlowLayout());
@@ -176,8 +173,23 @@ public class LaneView implements LaneObserver, ActionListener {
 						if (((int[]) ((HashMap) le.getScore())
 							.get(bowlers.get(k)))[i]
 							== 10
-							&& (i % 2 == 0 || i == 19))
-							ballLabel[k][i].setText("X");
+							&& (i % 2 == 0 || i == 19)) {
+							ballLabel[k][i].setText("X"); // strike
+							pins[k].setBorder(
+									BorderFactory.createTitledBorder(
+											((Bowler) le.getParty().getMembers().get(k)).getNick() + " \uD83D\uDE00"));
+							for(int z=k+1; z < numBowlers; z++) {
+								pins[z].setBorder(
+										BorderFactory.createTitledBorder(
+												((Bowler) le.getParty().getMembers().get(z)).getNick() + " \uD83E\uDD2F"));
+							}
+
+							for(int z=0; z < k; z++) {
+								pins[z].setBorder(
+										BorderFactory.createTitledBorder(
+												((Bowler) le.getParty().getMembers().get(z)).getNick() + " \uD83D\uDE42"));
+							}
+						}
 						else if (
 							i > 0
 								&& ((int[]) ((HashMap) le.getScore())
@@ -188,14 +200,25 @@ public class LaneView implements LaneObserver, ActionListener {
 									== 10
 								&& i % 2 == 1)
 							ballLabel[k][i].setText("/");
-						else if ( ((int[])((HashMap) le.getScore()).get(bowlers.get(k)))[i] == -2 ){
-							
-							ballLabel[k][i].setText("F");
-						} else
+						else if (((int[]) ((HashMap) le.getScore())
+								.get(bowlers.get(k)))[i]
+								< 4) {
 							ballLabel[k][i].setText(
-								(Integer.valueOf(((int[]) ((HashMap) le.getScore())
-										.get(bowlers.get(k)))[i]))
-									.toString());
+									(Integer.valueOf(((int[]) ((HashMap) le.getScore())
+											.get(bowlers.get(k)))[i]))
+											.toString());
+							pins[k].setBorder(
+									BorderFactory.createTitledBorder(
+											((Bowler) le.getParty().getMembers().get(k)).getNick() + " \uD83E\uDD2D"));
+						}
+						else if ( ((int[])((HashMap) le.getScore()).get(bowlers.get(k)))[i] == -2 ) {
+							ballLabel[k][i].setText("F"); // check extensively and remove it.
+						} else {
+							ballLabel[k][i].setText(
+									(Integer.valueOf(((int[]) ((HashMap) le.getScore())
+											.get(bowlers.get(k)))[i]))
+											.toString());
+						}
 				}
 			}
 
