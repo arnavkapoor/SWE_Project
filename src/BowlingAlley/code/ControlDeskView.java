@@ -164,9 +164,10 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 			System.exit(0);
 		}
 		if (e.getSource().equals(scoreHistory)) {
-			
-			win.hide();
-			System.exit(0);
+			AddScoreHistoryView addscores = new AddScoreHistoryView(this);
+			// win.hide();
+			// System.exit(0);
+			System.out.println("OK");
 		}
 
 	}
