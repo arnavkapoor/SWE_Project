@@ -167,6 +167,7 @@ public class LaneView implements LaneObserver, ActionListener {
 							(Integer.valueOf(lescores[k][i])).toString());
 				}
 				for (int i = 0; i < 21; i++) {
+					GetEmoticonFactory emotefact = new GetEmoticonFactory();
 					if (((int[]) ((HashMap) le.getScore())
 						.get(bowlers.get(k)))[i]
 						!= -1)
@@ -175,19 +176,22 @@ public class LaneView implements LaneObserver, ActionListener {
 							== 10
 							&& (i % 2 == 0 || i == 19)) {
 							ballLabel[k][i].setText("X"); // strike
+							Emoticon happyemoticon = emotefact.getEmote("HAPPY");
+							Emoticon appemoticon = emotefact.getEmote("APPRECIATE");
+							Emoticon envyemoticon = emotefact.getEmote("ENVY");
 							pins[k].setBorder(
 									BorderFactory.createTitledBorder(
-											((Bowler) le.getParty().getMembers().get(k)).getNick() + " \uD83D\uDE00"));
+											((Bowler) le.getParty().getMembers().get(k)).getNick() + happyemoticon.getEmoticon()));
 							for(int z=k+1; z < numBowlers; z++) {
 								pins[z].setBorder(
 										BorderFactory.createTitledBorder(
-												((Bowler) le.getParty().getMembers().get(z)).getNick() + " \uD83E\uDD2F"));
+												((Bowler) le.getParty().getMembers().get(z)).getNick() + appemoticon.getEmoticon()));
 							}
 
 							for(int z=0; z < k; z++) {
 								pins[z].setBorder(
 										BorderFactory.createTitledBorder(
-												((Bowler) le.getParty().getMembers().get(z)).getNick() + " \uD83D\uDE42"));
+												((Bowler) le.getParty().getMembers().get(z)).getNick() + envyemoticon.getEmoticon()));
 							}
 						}
 						else if (
@@ -198,8 +202,13 @@ public class LaneView implements LaneObserver, ActionListener {
 										.get(bowlers.get(k)))[i
 									- 1]
 									== 10
-								&& i % 2 == 1)
+								&& i % 2 == 1) {
 							ballLabel[k][i].setText("/");
+							Emoticon happyemoticon = emotefact.getEmote("HAPPY");
+							pins[k].setBorder(
+									BorderFactory.createTitledBorder(
+											((Bowler) le.getParty().getMembers().get(k)).getNick() + happyemoticon.getEmoticon()));
+						}
 						else if (((int[]) ((HashMap) le.getScore())
 								.get(bowlers.get(k)))[i]
 								< 4) {
@@ -207,9 +216,10 @@ public class LaneView implements LaneObserver, ActionListener {
 									(Integer.valueOf(((int[]) ((HashMap) le.getScore())
 											.get(bowlers.get(k)))[i]))
 											.toString());
+							Emoticon embarrassemoticon = emotefact.getEmote("EMBARRASS");
 							pins[k].setBorder(
 									BorderFactory.createTitledBorder(
-											((Bowler) le.getParty().getMembers().get(k)).getNick() + " \uD83E\uDD2D"));
+											((Bowler) le.getParty().getMembers().get(k)).getNick() + embarrassemoticon.getEmoticon()));
 						}
 						else if ( ((int[])((HashMap) le.getScore()).get(bowlers.get(k)))[i] == -2 ) {
 							ballLabel[k][i].setText("F"); // check extensively and remove it.
@@ -218,6 +228,10 @@ public class LaneView implements LaneObserver, ActionListener {
 									(Integer.valueOf(((int[]) ((HashMap) le.getScore())
 											.get(bowlers.get(k)))[i]))
 											.toString());
+							Emoticon normalemoticon = emotefact.getEmote("NORMAL");
+							pins[k].setBorder(
+									BorderFactory.createTitledBorder(
+											((Bowler) le.getParty().getMembers().get(k)).getNick() + normalemoticon.getEmoticon()));
 						}
 				}
 			}
