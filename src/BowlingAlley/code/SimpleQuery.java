@@ -7,20 +7,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class QueryHandler {
+public class SimpleQuery {
 
     private static String SCOREHISTORY_DAT = "SCOREHISTORY.DAT";
-
-    public static void QueryHandler() {
-        SCOREHISTORY_DAT = "./SCOREHISTORY.DAT";
-    }
 
     public String getQueryOutput(String nick, int option)
             throws IOException, FileNotFoundException {
 
         // File parsing
         String localDir = System.getProperty("user.dir");
-        System.out.println(localDir);
+
         File myObj = new File("SCOREHISTORY.DAT");
         Scanner myReader = new Scanner(myObj);
         while (myReader.hasNextLine()) {
@@ -29,32 +25,30 @@ public class QueryHandler {
         }
         String[] lines = Files.readAllLines(new File(SCOREHISTORY_DAT).toPath()).toArray(new String[0]);
 
-        int nickMax = 0;
-        int nickMin = 1000;
-        int topMax = 0;
-        String topNick = "\0";
-        System.out.println(lines);
+        int userwise_max = 0;
+        int userwise_min = 1000;
+        int overall_max = 0;
+        String topNick = " ";
+        int is_valid = 0;
 
-        // Generates output based on the query
+
         for(String line: lines) {
-            System.out.println(line);
+
 
             String[] rowVals = line.split("\\s+");
-
-            // Overall Top Player
-            if(topMax < Integer.parseInt(rowVals[3])) {
-                topMax = Integer.parseInt(rowVals[3]);
+            if(overall_max < Integer.parseInt(rowVals[3])) {
+                overall_max = Integer.parseInt(rowVals[3]);
                 topNick = rowVals[0];
             }
 
             if(nick.equals(rowVals[0])) {
-
-                if(nickMax < Integer.parseInt(rowVals[3])) {
-                    nickMax = Integer.parseInt(rowVals[3]);
+                is_valid = 1;
+                if(userwise_max < Integer.parseInt(rowVals[3])) {
+                    userwise_max = Integer.parseInt(rowVals[3]);
                 }
 
-                if(nickMin > Integer.parseInt(rowVals[3])) {
-                    nickMin = Integer.parseInt(rowVals[3]);
+                if(userwise_min > Integer.parseInt(rowVals[3])) {
+                    userwise_min = Integer.parseInt(rowVals[3]);
                 }
 
             }
@@ -63,15 +57,20 @@ public class QueryHandler {
 
         String outputVals = "Error Output\n";
 
-        // Returns output based on the query
         if(option == 1) {
-            outputVals = topNick+" "+topMax+"\n";
+            outputVals = topNick+" had the highest score of "+overall_max+"\n";
         }
         else if(option == 2) {
-            outputVals = nick+" "+nickMax+"\n";
+            if(is_valid == 1)
+                outputVals = nick+" had a max score of  "+userwise_max+"\n";
+            else
+                outputVals = "This user " + nick +  " has not played before";
         }
         else if(option == 3) {
-            outputVals = nick+" "+nickMin+"\n";
+             if(is_valid == 1)
+                   outputVals = nick+" had a min score of "+userwise_min+ "\n";
+             else
+                    outputVals = "This user " + nick + " has not played before";
         }
 
         return outputVals;
