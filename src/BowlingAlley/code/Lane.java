@@ -26,7 +26,9 @@ public class Lane extends Thread implements PinsetterObserver {
 	
 	private int[][] finalScores;
 	private int gameNumber;
-	
+
+	private int penalizeNextFrame;
+
 	private Bowler currentThrower;			// = the thrower who just took a throw
 	static Logger log = Logger.getLogger(Lane.class.getName());
 
@@ -46,6 +48,8 @@ public class Lane extends Thread implements PinsetterObserver {
 		partyAssigned = false;
 
 		gameNumber = 0;
+		penalizeNextFrame = 0;
+
 
 		setter.subscribe( this );
 		
@@ -309,7 +313,7 @@ public class Lane extends Thread implements PinsetterObserver {
 		if(curScore[i-1] == 0 && curScore[i] == 0){
 			if(i == 1) {
 				// penalise 1/2 points of next frame
-				//TBD
+				penalizeNextFrame = 1;
 			}
 			else if(mx > 0){
 				// penalise 1/2 points of highest score
@@ -353,6 +357,18 @@ public class Lane extends Thread implements PinsetterObserver {
 		//Iterate through each ball until the current one.
 
 		for (int i = 0; i != current+2; i++) {
+			// If the first 2 consecutive times
+			//are at the start of the game, player would be penalized 1/2 of the points that is scored in
+			//the next frame.
+			if(penalizeNextFrame == 1){
+				penalizeNextFrame = 0;
+				int mx = -10;
+				for(int j=0;j < i;j++) mx = Math.max(mx, curScore[j]);
+				if(mx > 0) {
+					cumulScores[bowlIndex][i/2] -= (mx/2);
+				}
+			}
+
 			// Check if 2 consecutive gutters are bowled
 			if(i%2 == 1) handleGutter(curScore, i, current);
 			//Spare:
