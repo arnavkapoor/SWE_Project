@@ -28,6 +28,9 @@ public class Lane extends Thread implements PinsetterObserver {
 	
 	private int[][] finalScores;
 	private int gameNumber;
+	
+	private int highestPlayer;
+	private int secondHighestPlayer;
 
 	private int penalizeNextFrame;
 
@@ -187,6 +190,31 @@ public class Lane extends Thread implements PinsetterObserver {
 		}
 		Random rand = new Random();
 		int randomNum = rand.nextInt((10 - 5) + 1) + 5;
+		handleExtraChance(randomNum);
+	}
+
+	private void handleExtraChance(int pinsDown) {
+		int highestScore = cumulScores[highestPlayer][9];
+		int secondHighestScore = cumulScores[secondHighestPlayer][9] + pinsDown;
+
+
+		if(highestScore <= secondHighestScore) {
+			Vector bowlers = new Vector(party.getMembers());
+			Vector partyNicks = new Vector();
+			partyNicks.add(((Bowler) bowlers.get(highestPlayer)).getNickName());
+			partyNicks.add(((Bowler) bowlers.get(secondHighestPlayer)).getNickName());
+
+
+			ControlDesk newControlDesk = new ControlDesk(1, 3, false);
+			ControlDeskView newCDV = new ControlDeskView( newControlDesk, 2);
+			newControlDesk.subscribe( newCDV );
+
+			newControlDesk.addPartyQueue(partyNicks);
+		} else {
+			System.out.println("The second highest player is not able to cross the highest player");
+			System.out.println("So the game ends here");
+		}
+		return ;
 	}
 	
 	/** recievePinsetterEvent()
