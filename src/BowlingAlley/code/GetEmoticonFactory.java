@@ -28,6 +28,12 @@ public class GetEmoticonFactory {
             tempNormal.addEmotion();
             return tempNormal;
         }
+
+        else if(EmoteType.equalsIgnoreCase("Male")) {
+            Emoticon tempMale = new Male();
+            tempMale.addEmotion();
+            return tempMale;
+        }
         return null;
     }
 }
