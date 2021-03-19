@@ -353,6 +353,8 @@ public class Lane extends Thread implements PinsetterObserver {
 		//Iterate through each ball until the current one.
 
 		for (int i = 0; i != current+2; i++) {
+			// Check if 2 consecutive gutters are bowled
+			if(i%2 == 1) handleGutter(curScore, i, current);
 			//Spare:
 			if (i % 2 == 1 && curScore[i - 1] + curScore[i] == 10 && i < current - 1 && i < 19) {
 				//This ball was a the second of a spare.
