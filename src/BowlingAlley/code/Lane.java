@@ -280,6 +280,21 @@ public class Lane extends Thread implements PinsetterObserver {
 		publish( lanePublish() );
 	}
 
+	void handleGutter(int[] curScore, int i, int current){
+		int mx = -10;
+		for(int j=0;j < i;j++) mx = Math.max(mx, curScore[j]);
+		if(curScore[i-1] == 0 && curScore[i] == 0){
+			if(i == 1) {
+				// penalise 1/2 points of next frame
+				//TBD
+			}
+			else if(mx > 0){
+				// penalise 1/2 points of highest score
+				cumulScores[bowlIndex][i/2] -= (mx/2);
+			}
+		}
+	}
+
 	/** lanePublish()
 	 *
 	 * Method that creates and returns a newly created laneEvent
