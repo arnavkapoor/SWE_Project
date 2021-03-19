@@ -1,5 +1,7 @@
 
 import java.util.*;
+import java.util.Random;
+
 
 import org.apache.log4j.Logger;
 
@@ -178,6 +180,13 @@ public class Lane extends Thread implements PinsetterObserver {
 
 		highestPlayer = find;
 		secondHighestPlayer = sind;
+
+		extraChance = true;
+		for(i=0; i<sind; i++) {
+			currentThrower = (Bowler)bowlerIterator.next();
+		}
+		Random rand = new Random();
+		int randomNum = rand.nextInt((10 - 5) + 1) + 5;
 	}
 	
 	/** recievePinsetterEvent()
