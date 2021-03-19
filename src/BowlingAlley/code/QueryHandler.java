@@ -12,7 +12,7 @@ public class QueryHandler {
     private static String SCOREHISTORY_DAT = "SCOREHISTORY.DAT";
 
     public static void QueryHandler() {
-        SCOREHISTORY_DAT = "./SCOREHISTORY.DAT";
+        SCOREHISTORY_DAT = "SCOREHISTORY.DAT";
     }
 
     public String getQueryOutput(String nick, int option)
@@ -20,7 +20,8 @@ public class QueryHandler {
 
         // File parsing
         String localDir = System.getProperty("user.dir");
-        System.out.println(localDir);
+//        System.out.println(localDir);
+
         File myObj = new File("SCOREHISTORY.DAT");
         Scanner myReader = new Scanner(myObj);
         while (myReader.hasNextLine()) {
@@ -32,15 +33,17 @@ public class QueryHandler {
         int nickMax = 0;
         int nickMin = 1000;
         int topMax = 0;
-        String topNick = "\0";
+        String topNick = " ";
+        int is_valid = 0;
+
         System.out.println(lines);
 
         // Generates output based on the query
         for(String line: lines) {
-            System.out.println(line);
+
 
             String[] rowVals = line.split("\\s+");
-
+            System.out.println(rowVals[3]);
             // Overall Top Player
             if(topMax < Integer.parseInt(rowVals[3])) {
                 topMax = Integer.parseInt(rowVals[3]);
@@ -48,7 +51,7 @@ public class QueryHandler {
             }
 
             if(nick.equals(rowVals[0])) {
-
+                is_valid = 1;
                 if(nickMax < Integer.parseInt(rowVals[3])) {
                     nickMax = Integer.parseInt(rowVals[3]);
                 }
@@ -60,18 +63,25 @@ public class QueryHandler {
             }
 
         }
+        System.out.println(nickMin);
 
         String outputVals = "Error Output\n";
 
         // Returns output based on the query
         if(option == 1) {
-            outputVals = topNick+" "+topMax+"\n";
+            outputVals = topNick+" had the highest score of "+topMax+"\n";
         }
         else if(option == 2) {
-            outputVals = nick+" "+nickMax+"\n";
+            if(is_valid == 1)
+                outputVals = nick+" had a max score of  "+nickMax+"\n";
+            else
+                outputVals = "This user " + nick +  " is not there in DB";
         }
         else if(option == 3) {
-            outputVals = nick+" "+nickMin+"\n";
+             if(is_valid == 1)
+                   outputVals = nick+" had a min score of "+nickMin+ "\n";
+             else
+                    outputVals = "This user " + nick + " is not there in DB";
         }
 
         return outputVals;

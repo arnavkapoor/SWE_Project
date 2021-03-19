@@ -91,7 +91,7 @@ public class AddScoreHistoryView implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 			if (e.getSource().equals(topPlayers)) {
 				try {
-					String outputVals = queryHandler.getQueryOutput("trash",1);
+					String outputVals = queryHandler.getQueryOutput("random",1);
 					output.setText(outputVals);
 				}
 				catch(IOException error) {
