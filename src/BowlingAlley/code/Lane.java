@@ -21,6 +21,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	private int bowlIndex;
 	private int frameNumber;
 	private boolean tenthFrameStrike;
+	private boolean extraChance;
 
 	private int[] curScores;
 	private int[][] cumulScores;
@@ -51,6 +52,7 @@ public class Lane extends Thread implements PinsetterObserver {
 
 		gameIsHalted = false;
 		partyAssigned = false;
+		extraChance = false;
 
 		gameNumber = 0;
 		penalizeNextFrame = 0;
@@ -205,11 +207,11 @@ public class Lane extends Thread implements PinsetterObserver {
 			partyNicks.add(((Bowler) bowlers.get(secondHighestPlayer)).getNickName());
 
 
-			ControlDesk newControlDesk = new ControlDesk(1, 3, false);
-			ControlDeskView newCDV = new ControlDeskView( newControlDesk, 2);
-			newControlDesk.subscribe( newCDV );
+			//ControlDesk newControlDesk = new ControlDesk(1, 3, false);
+			//ControlDeskView newCDV = new ControlDeskView( newControlDesk, 2);
+			//newControlDesk.subscribe( newCDV );
 
-			newControlDesk.addPartyQueue(partyNicks);
+			//newControlDesk.addPartyQueue(partyNicks);
 		} else {
 			System.out.println("The second highest player is not able to cross the highest player");
 			System.out.println("So the game ends here");
