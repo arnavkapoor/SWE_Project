@@ -30,7 +30,7 @@ class ControlDesk extends Thread {
      *
      */
 
-	public ControlDesk(int numLanes) {
+	public ControlDesk(int numLanes, int framesAllowed, boolean tieBreakerAllowed) {
 		this.numLanes = numLanes;
 		lanes = new HashSet(numLanes);
 		partyQueue = new Queue();
@@ -38,7 +38,7 @@ class ControlDesk extends Thread {
 		subscribers = new Vector();
 
 		for (int i = 0; i < numLanes; i++) {
-			lanes.add(new Lane());
+			lanes.add(new Lane(framesAllowed, tieBreakerAllowed));
 		}
 		
 		this.start();

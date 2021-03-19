@@ -29,6 +29,8 @@ public class Lane extends Thread implements PinsetterObserver {
 	
 	private int[][] finalScores;
 	private int gameNumber;
+	private boolean tieBreakerAllowed;
+	private int framesAllowed;
 	
 	private int highestPlayer;
 	private int secondHighestPlayer;
@@ -45,7 +47,7 @@ public class Lane extends Thread implements PinsetterObserver {
 	 * @pre none
 	 * @post a new lane has been created and its thered is executing
 	 */
-	public Lane() { 
+	public Lane(int fa, boolean tba) { 
 		setter = new Pinsetter();
 		scores = new HashMap();
 		subscribers = new Vector();
@@ -56,6 +58,8 @@ public class Lane extends Thread implements PinsetterObserver {
 
 		gameNumber = 0;
 		penalizeNextFrame = 0;
+		framesAllowed = fa - 1;
+		tieBreakerAllowed = tba;
 
 
 		setter.subscribe( this );
@@ -91,8 +95,8 @@ public class Lane extends Thread implements PinsetterObserver {
 						ball++;
 					}
 					
-					if (frameNumber == 9){
-						finalScores[bowlIndex][gameNumber] = cumulScores[bowlIndex][9];
+					if (frameNumber == framesAllowed){
+						finalScores[bowlIndex][gameNumber] = cumulScores[bowlIndex][framesAllowed];
 						try{
 							Calendar calendar = Calendar.getInstance();
 
@@ -100,7 +104,7 @@ public class Lane extends Thread implements PinsetterObserver {
 									calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DAY_OF_MONTH) + "/" +
 									calendar.get(Calendar.YEAR);
 
-							ScoreHistoryFile.addScore(currentThrower.getNick(), dateString, Integer.toString(cumulScores[bowlIndex][9]));
+							ScoreHistoryFile.addScore(currentThrower.getNick(), dateString, Integer.toString(cumulScores[bowlIndex][framesAllowed]));
 						} catch (Exception e) {log.error("Exception in addScore. "+ e );}
 					}
 
@@ -112,12 +116,15 @@ public class Lane extends Thread implements PinsetterObserver {
 					frameNumber++;
 					resetBowlerIterator();
 					bowlIndex = 0;
-					if (frameNumber > 9) {
+					if (frameNumber > framesAllowed) {
 						gameFinished = true;
 						gameNumber++;
 					}
 				}
 			} else if (partyAssigned && gameFinished) {
+				if(tieBreakerAllowed){
+					handleEndGame();
+				}
 				EndGamePrompt egp = new EndGamePrompt( ((Bowler) party.getMembers().get(0)).getNickName() + "'s Party" );
 				int result = egp.getResult();
 				egp.distroy();
@@ -207,9 +214,9 @@ public class Lane extends Thread implements PinsetterObserver {
 			partyNicks.add(((Bowler) bowlers.get(secondHighestPlayer)).getNickName());
 
 
-			//ControlDesk newControlDesk = new ControlDesk(1, 3, false);
-			//ControlDeskView newCDV = new ControlDeskView( newControlDesk, 2);
-			//newControlDesk.subscribe( newCDV );
+			ControlDesk newControlDesk = new ControlDesk(1, 3, false);
+			ControlDeskView newCDV = new ControlDeskView( newControlDesk, 2);
+			newControlDesk.subscribe( newCDV );
 
 			//newControlDesk.addPartyQueue(partyNicks);
 		} else {

@@ -13,7 +13,7 @@ public class drive {
 		int numLanes = 3;
 		int maxPatronsPerParty=5;
 
-		ControlDesk controlDesk = new ControlDesk( numLanes );
+		ControlDesk controlDesk = new ControlDesk( numLanes, 10, true );
 		ControlDeskView cdv = new ControlDeskView(controlDesk, maxPatronsPerParty);
 		controlDesk.subscribe( cdv );
 
