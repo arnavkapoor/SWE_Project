@@ -152,6 +152,29 @@ public class Lane extends Thread implements PinsetterObserver {
 			} catch (Exception e) {}
 		}
 	}
+
+	private void handleEndGame() {
+
+		int totalBowlers = party.getMembers().size();
+		int max = 0, smax = 0, sind = 0, find = 0, i;
+
+		// findSecondHighestPlayer()
+		for(i=0; i<totalBowlers; i++) {
+			if(cumulScores[i][9]>max) {
+				smax = max;
+				sind = find;
+				max = cumulScores[i][9];
+				find = i;
+			}
+			else if(cumulScores[i][9]>smax) {
+				smax = cumulScores[i][9];
+				sind = i;
+			}
+		}
+
+		highestPlayer = find;
+		secondHighestPlayer = sind;
+	}
 	
 	/** recievePinsetterEvent()
 	 * 
