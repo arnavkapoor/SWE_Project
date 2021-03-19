@@ -17,9 +17,11 @@ public class NewPatronView implements ActionListener {
 	final private JTextField nickField;
 	final private JTextField fullField;
 	final private JTextField emailField;
+	final private JTextField genderField;
 	private String nick;
 	private String full;
 	private String email;
+	private String gender;
 
 	private boolean done;
 
@@ -63,9 +65,17 @@ public class NewPatronView implements ActionListener {
 		emailPanel.add(emailLabel);
 		emailPanel.add(emailField);
 
+		JPanel genderPanel = new JPanel();
+		genderPanel.setLayout(new FlowLayout());
+		JLabel genderLabel = new JLabel("Gender (M/F)");
+		genderField = new JTextField("", 15);
+		genderPanel.add(genderLabel);
+		genderPanel.add(genderField);
+
 		patronPanel.add(nickPanel);
 		patronPanel.add(fullPanel);
 		patronPanel.add(emailPanel);
+		patronPanel.add(genderPanel);
 
 		// Button Panel
 		JPanel buttonPanel = new JPanel();
@@ -114,6 +124,7 @@ public class NewPatronView implements ActionListener {
 			nick = nickField.getText();
 			full = fullField.getText();
 			email = emailField.getText();
+			gender = genderField.getText();
 			done = true;
 			addParty.updateNewPatron( this );
 			win.hide();
@@ -136,5 +147,7 @@ public class NewPatronView implements ActionListener {
 	public String getEmail() {
 		return email;
 	}
+
+	public String getGender() { return gender; }
 
 }

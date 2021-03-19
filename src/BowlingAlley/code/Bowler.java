@@ -10,11 +10,13 @@ public class Bowler {
     final private String fullName;
     final private String nickName;
     final private String email;
+    final private String gender;
 
-    public Bowler( String nick, String full, String mail ) {
+    public Bowler( String nick, String full, String mail, String gen ) {
 	nickName = nick;
 	fullName = full;
   	email = mail;
+  	gender = gen;
     }
 
 
@@ -35,6 +37,10 @@ public class Bowler {
 	public String getEmail ( ) {
 		return email;	
 	}
+
+	public String getGender ( ) {
+		return gender;
+	}
 	
 	public boolean equals ( Bowler b) {
 		boolean retval = true;
@@ -46,6 +52,9 @@ public class Bowler {
 		}	
 		if ( !(email.equals(b.getEmail())) ) {
 				retval = false;
+		}
+		if (! (gender.equals((b.getGender())))) {
+			retval = false;
 		}
 		return retval;
 	}

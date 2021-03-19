@@ -133,7 +133,7 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 	public static void main( String args[] ) {
 		List bowlers = new Vector();
 		for ( int i=0; i<4; i++ ) {
-			bowlers.add( new Bowler( "aaaaa", "aaaaa", "aaaaa" ) );
+			bowlers.add( new Bowler( "aaaaa", "aaaaa", "aaaaa", "M" ) );
 		}
 		Party party = new Party( bowlers );
 		String partyName="wank";

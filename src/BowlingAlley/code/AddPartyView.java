@@ -55,7 +55,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 
 		partyList = new JList(empty.toArray());
 		partyList.setFixedCellWidth(120);
-		partyList.setVisibleRowCount(5);
+		partyList.setVisibleRowCount(6);
 		partyList.addListSelectionListener(this);
 		JScrollPane partyPane = new JScrollPane(partyList);
 		partyPanel.add(partyPane);
@@ -72,7 +72,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 			bowlerdb = new Vector();
 		}
 		allBowlers = new JList(bowlerdb.toArray());
-		allBowlers.setVisibleRowCount(8);
+		allBowlers.setVisibleRowCount(50);
 		allBowlers.setFixedCellWidth(120);
 		JScrollPane bowlerPane = new JScrollPane(allBowlers);
 		bowlerPane.setVerticalScrollBarPolicy(
@@ -220,7 +220,8 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 				BowlerFile.putBowlerInfo(
 					newPatron.getNick(),
 					newPatron.getFull(),
-					newPatron.getEmail());
+					newPatron.getEmail(),
+					newPatron.getGender());
 				bowlerdb = new Vector(BowlerFile.getBowlers());
 				allBowlers.setListData(bowlerdb.toArray());
 				party.add(newPatron.getNick());

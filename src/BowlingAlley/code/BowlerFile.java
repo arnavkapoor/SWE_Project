@@ -18,7 +18,6 @@ final class BowlerFile {
     /**
      * Retrieves bowler information from the database and returns a Bowler objects with populated fields.
      *
-     * @param nickName	the nickName of the bolwer to retrieve
      *
      * @return a Bowler object
      * 
@@ -40,8 +39,10 @@ final class BowlerFile {
 						+ " Full: "
 						+ bowler[1]
 						+ " email: "
-						+ bowler[2]);
-				return (new Bowler(bowler[0], bowler[1], bowler[2]));
+						+ bowler[2]
+						+ "gender: "
+						+ bowler[3]);
+				return (new Bowler(bowler[0], bowler[1], bowler[2], bowler[3]));
 			}
 		}
 		log.info("Nick not found...");
@@ -60,10 +61,11 @@ final class BowlerFile {
 	public static void putBowlerInfo(
 		String nickName,
 		String fullName,
-		String email)
+		String email,
+		String gender)
 		throws IOException, FileNotFoundException {
 
-		String data = nickName + "\t" + fullName + "\t" + email + "\n";
+		String data = nickName + "\t" + fullName + "\t" + email + "\t" + gender + "\n";
 
 		RandomAccessFile out = new RandomAccessFile(BOWLER_DAT, "rw");
 		out.skipBytes((int) out.length());
