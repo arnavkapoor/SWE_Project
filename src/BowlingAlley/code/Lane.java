@@ -208,6 +208,7 @@ public class Lane extends Thread implements PinsetterObserver {
 
 
 		if(highestScore <= secondHighestScore) {
+        //if(true) {
 			Vector bowlers = new Vector(party.getMembers());
 			Vector partyNicks = new Vector();
 			partyNicks.add(((Bowler) bowlers.get(highestPlayer)).getNickName());
@@ -218,7 +219,7 @@ public class Lane extends Thread implements PinsetterObserver {
 			ControlDeskView newCDV = new ControlDeskView( newControlDesk, 2);
 			newControlDesk.subscribe( newCDV );
 
-			//newControlDesk.addPartyQueue(partyNicks);
+			newControlDesk.addPartyQueue(partyNicks);
 		} else {
 			System.out.println("The second highest player is not able to cross the highest player");
 			System.out.println("So the game ends here");
