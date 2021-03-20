@@ -100,12 +100,21 @@ public class LaneView implements LaneObserver, ActionListener {
 			ballGrid[i][j].add(balls[i][2 * j + 1]);
 			ballGrid[i][j].add(balls[i][2 * j + 2]);
 		}
-
+		GetEmoticonFactory emotefact = new GetEmoticonFactory();
+		Emoticon maleemoticon = emotefact.getEmote("Male");
+		Emoticon femaleemoticon = emotefact.getEmote("Female");
 		for (int i = 0; i != numBowlers; i++) {
 			pins[i] = new JPanel();
-			pins[i].setBorder(
-				BorderFactory.createTitledBorder(
-					((Bowler) bowlers.get(i)).getNick()));
+			if(((Bowler) bowlers.get(i)).getGender().equalsIgnoreCase("M")) {
+				pins[i].setBorder(
+						BorderFactory.createTitledBorder(maleemoticon.getEmoticon() +
+								((Bowler) bowlers.get(i)).getNick()));
+			}
+			else if (((Bowler) bowlers.get(i)).getGender().equalsIgnoreCase("F")){
+				pins[i].setBorder(
+						BorderFactory.createTitledBorder(femaleemoticon.getEmoticon() +
+								((Bowler) bowlers.get(i)).getNick()));
+			}
 			pins[i].setLayout(new GridLayout(0, 10));
 			for (int k = 0; k != 10; k++) {
 				scores[i][k] = new JPanel();
@@ -179,19 +188,42 @@ public class LaneView implements LaneObserver, ActionListener {
 							Emoticon happyemoticon = emotefact.getEmote("HAPPY");
 							Emoticon appemoticon = emotefact.getEmote("APPRECIATE");
 							Emoticon envyemoticon = emotefact.getEmote("ENVY");
-							pins[k].setBorder(
-									BorderFactory.createTitledBorder(
-											((Bowler) le.getParty().getMembers().get(k)).getNick() + happyemoticon.getEmoticon()));
+							Emoticon maleemoticon = emotefact.getEmote("Male");
+							Emoticon femaleemoticon = emotefact.getEmote("Female");
+							if(((Bowler) le.getParty().getMembers().get(k)).getGender().equalsIgnoreCase("M")) {
+								pins[k].setBorder(
+										BorderFactory.createTitledBorder(maleemoticon.getEmoticon() +
+												((Bowler) le.getParty().getMembers().get(k)).getNick() + happyemoticon.getEmoticon()));
+							}
+							else if (((Bowler) le.getParty().getMembers().get(k)).getGender().equalsIgnoreCase("F")) {
+								pins[k].setBorder(
+										BorderFactory.createTitledBorder(femaleemoticon.getEmoticon() +
+												((Bowler) le.getParty().getMembers().get(k)).getNick() + happyemoticon.getEmoticon()));
+							}
 							for(int z=k+1; z < numBowlers; z++) {
-								pins[z].setBorder(
-										BorderFactory.createTitledBorder(
-												((Bowler) le.getParty().getMembers().get(z)).getNick() + appemoticon.getEmoticon()));
+								if(((Bowler) le.getParty().getMembers().get(z)).getGender().equalsIgnoreCase("M")) {
+									pins[z].setBorder(
+											BorderFactory.createTitledBorder(maleemoticon.getEmoticon() +
+													((Bowler) le.getParty().getMembers().get(z)).getNick() + appemoticon.getEmoticon()));
+								}
+								else if(((Bowler) le.getParty().getMembers().get(z)).getGender().equalsIgnoreCase("F")) {
+									pins[z].setBorder(
+											BorderFactory.createTitledBorder(femaleemoticon.getEmoticon() +
+													((Bowler) le.getParty().getMembers().get(z)).getNick() + appemoticon.getEmoticon()));
+								}
 							}
 
 							for(int z=0; z < k; z++) {
-								pins[z].setBorder(
-										BorderFactory.createTitledBorder(
-												((Bowler) le.getParty().getMembers().get(z)).getNick() + envyemoticon.getEmoticon()));
+								if(((Bowler) le.getParty().getMembers().get(z)).getGender().equalsIgnoreCase("M")) {
+									pins[z].setBorder(
+											BorderFactory.createTitledBorder(maleemoticon.getEmoticon() +
+													((Bowler) le.getParty().getMembers().get(z)).getNick() + envyemoticon.getEmoticon()));
+								}
+								else if(((Bowler) le.getParty().getMembers().get(z)).getGender().equalsIgnoreCase("F")) {
+									pins[z].setBorder(
+											BorderFactory.createTitledBorder(femaleemoticon.getEmoticon() +
+													((Bowler) le.getParty().getMembers().get(z)).getNick() + envyemoticon.getEmoticon()));
+								}
 							}
 						}
 						else if (
@@ -205,9 +237,18 @@ public class LaneView implements LaneObserver, ActionListener {
 								&& i % 2 == 1) {
 							ballLabel[k][i].setText("/");
 							Emoticon happyemoticon = emotefact.getEmote("HAPPY");
-							pins[k].setBorder(
-									BorderFactory.createTitledBorder(
-											((Bowler) le.getParty().getMembers().get(k)).getNick() + happyemoticon.getEmoticon()));
+							Emoticon maleemoticon = emotefact.getEmote("Male");
+							Emoticon femaleemoticon = emotefact.getEmote("Female");
+							if(((Bowler) le.getParty().getMembers().get(k)).getGender().equalsIgnoreCase("M")) {
+								pins[k].setBorder(
+										BorderFactory.createTitledBorder(maleemoticon.getEmoticon() +
+												((Bowler) le.getParty().getMembers().get(k)).getNick() + happyemoticon.getEmoticon()));
+							}
+							else if(((Bowler) le.getParty().getMembers().get(k)).getGender().equalsIgnoreCase("F") ) {
+								pins[k].setBorder(
+										BorderFactory.createTitledBorder(femaleemoticon.getEmoticon() +
+												((Bowler) le.getParty().getMembers().get(k)).getNick() + happyemoticon.getEmoticon()));
+							}
 						}
 						else if (((int[]) ((HashMap) le.getScore())
 								.get(bowlers.get(k)))[i]
@@ -217,9 +258,18 @@ public class LaneView implements LaneObserver, ActionListener {
 											.get(bowlers.get(k)))[i]))
 											.toString());
 							Emoticon embarrassemoticon = emotefact.getEmote("EMBARRASS");
-							pins[k].setBorder(
-									BorderFactory.createTitledBorder(
-											((Bowler) le.getParty().getMembers().get(k)).getNick() + embarrassemoticon.getEmoticon()));
+							Emoticon maleemoticon = emotefact.getEmote("Male");
+							Emoticon femaleemoticon = emotefact.getEmote("Female");
+							if(((Bowler) le.getParty().getMembers().get(k)).getGender().equalsIgnoreCase("M")) {
+								pins[k].setBorder(
+										BorderFactory.createTitledBorder(maleemoticon.getEmoticon() +
+												((Bowler) le.getParty().getMembers().get(k)).getNick() + embarrassemoticon.getEmoticon()));
+							}
+							else if(((Bowler) le.getParty().getMembers().get(k)).getGender().equalsIgnoreCase("F")) {
+								pins[k].setBorder(
+										BorderFactory.createTitledBorder(femaleemoticon.getEmoticon() +
+												((Bowler) le.getParty().getMembers().get(k)).getNick() + embarrassemoticon.getEmoticon()));
+							}
 						}
 						else if ( ((int[])((HashMap) le.getScore()).get(bowlers.get(k)))[i] == -2 ) {
 							ballLabel[k][i].setText("F"); // check extensively and remove it.
@@ -229,9 +279,18 @@ public class LaneView implements LaneObserver, ActionListener {
 											.get(bowlers.get(k)))[i]))
 											.toString());
 							Emoticon normalemoticon = emotefact.getEmote("NORMAL");
-							pins[k].setBorder(
-									BorderFactory.createTitledBorder(
-											((Bowler) le.getParty().getMembers().get(k)).getNick() + normalemoticon.getEmoticon()));
+							Emoticon maleemoticon = emotefact.getEmote("Male");
+							Emoticon femaleemoticon = emotefact.getEmote("Female");
+							if(((Bowler) le.getParty().getMembers().get(k)).getGender().equalsIgnoreCase("M")) {
+								pins[k].setBorder(
+										BorderFactory.createTitledBorder(maleemoticon.getEmoticon() +
+												((Bowler) le.getParty().getMembers().get(k)).getNick() + normalemoticon.getEmoticon()));
+							}
+							else if(((Bowler) le.getParty().getMembers().get(k)).getGender().equalsIgnoreCase("F")) {
+								pins[k].setBorder(
+										BorderFactory.createTitledBorder(femaleemoticon.getEmoticon() +
+												((Bowler) le.getParty().getMembers().get(k)).getNick() + normalemoticon.getEmoticon()));
+							}
 						}
 				}
 			}

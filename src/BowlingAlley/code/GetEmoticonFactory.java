@@ -34,6 +34,11 @@ public class GetEmoticonFactory {
             tempMale.addEmotion();
             return tempMale;
         }
+        else if(EmoteType.equalsIgnoreCase("Female")) {
+            Emoticon tempFale = new Female();
+            tempFale.addEmotion();
+            return tempFale;
+        }
         return null;
     }
 }
