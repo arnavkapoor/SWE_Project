@@ -91,7 +91,7 @@ public class Lane extends Thread implements PinsetterObserver {
 					tenthFrameStrike = false;
 					ball = 0;
 					while (canThrowAgain) {
-						setter.ballThrown();		// simulate the thrower's ball hitting
+						setter.ballThrown(currentThrower);		// simulate the thrower's ball hitting
 						ball++;
 					}
 					

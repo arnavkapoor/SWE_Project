@@ -23,6 +23,7 @@ public class Pinsetter {
 			*/
 	private boolean foul;
 	private int throwNumber;
+	private Bowler currentThrower;			// = the thrower who just took a throw
 
 	/** sendEvent()
 	 * 
@@ -61,10 +62,15 @@ public class Pinsetter {
 	 * @pre none
 	 * @post pins may have been knocked down and the thrownumber has been incremented
 	 */
-	public void ballThrown() {	// simulated event of ball hits sensor
+	public void ballThrown(Bowler currentThrower) {	// simulated event of ball hits sensor
 		int count = 0;
 		foul = false;
-		double skill = rnd.nextDouble();
+
+		ConsoleView cv = new ConsoleView(currentThrower);
+		double skill = cv.getUpdate();
+		cv.hideWindow();
+
+//		double skill = rnd.nextDouble();
 		for (int i=0; i <= 9; i++) {
 			if (pins[i]) {
 				double pinluck = rnd.nextDouble();
