@@ -4,15 +4,18 @@
  */
 
 import org.apache.log4j.Logger;
+import com.formdev.flatlaf.*;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
-
+import javax.swing.UIManager;
 public class LaneView implements LaneObserver, ActionListener {
 
 	//private int roll;
+
+
 	private boolean initDone = true;
 
 	JFrame frame;
@@ -59,6 +62,7 @@ public class LaneView implements LaneObserver, ActionListener {
 	}
 
 	private JPanel makeFrame(Party party) {
+
 
 		initDone = false;
 		bowlers = (Vector) party.getMembers();

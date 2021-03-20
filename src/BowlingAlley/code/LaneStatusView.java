@@ -6,6 +6,8 @@
  * Window>Preferences>Java>Code Generation.
  */
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
