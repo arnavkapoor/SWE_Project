@@ -82,7 +82,7 @@ public class AddScoreHistoryView implements ActionListener {
 			main_window.getContentPane().setLayout(new BorderLayout());
 			((JPanel) main_window.getContentPane()).setOpaque(false);
 
-			topPlayers = new JButton("Top Players");
+			topPlayers = new JButton("Top Scoring Game Ever");
 			topPlayers.addActionListener(this);
 
 //			nickText = new JTextField("Nick Here",10);
@@ -92,22 +92,21 @@ public class AddScoreHistoryView implements ActionListener {
 				String[].class);
 			dropdownnick = new JComboBox(bowler_db_arr);
 
-			nickMax = new JButton("Check Max Score");
+			nickMax = new JButton("Check Maximum Score for Player");
 			nickMax.addActionListener(this);
 
-			nickMin = new JButton("Check Min Score");
+			nickMin = new JButton("Check Minimum Score for Player");
 			nickMin.addActionListener(this);
 
 			JPanel panel1 = new JPanel();
 			JPanel panel2 = new JPanel();
-			panel2.setLayout(new GridLayout(4,1));
+			panel2.setLayout(new GridLayout(6,1));
 
-			output = new TextArea("Output Comes Here");
+			output = new TextArea("Query Results");
 			panel1.add(output);
 
-			output.setBounds(10,30,300,300);
+			output.setBounds(10,30,250,100);
 			panel2.add(topPlayers);
-//			panel2.add(nickText);
 
 
 			panel2.add(dropdownnick);
